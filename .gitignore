@@ -1,4 +1,7 @@
 #yasin's virtual env
-airqualityenv
+airqualityvenv
 
 #ray's virtual env
+
+#yasin's env
+.env
