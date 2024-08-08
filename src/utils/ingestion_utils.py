@@ -63,5 +63,16 @@ def OpenWeatherAPIGeocoding(api_key, city_name, state_code=None, country_code=No
     }
 
     response = requests.get(base_url, params = params)
-    return response
+    data =  response.json()
+    return data
+
+
+if __name__ == "__main__":
+    secret = FetchSecret("OpenWeatherAPIKeyYasin")
+    data = OpenWeatherAPIGeocoding(
+        api_key=secret,
+        city_name="London"
+    )
+
+    print(data)
 
