@@ -1,5 +1,5 @@
 import requests                                                     # for requesting response from api call
-from azure.identity import ManagedIdentityCredential, AzureCliCredential, DefaultAzureCredential                # work with your UAMI credentials
+from azure.identity import ManagedIdentityCredential, AzureCliCredential              # work with your UAMI credentials
 from azure.keyvault.secrets import SecretClient                     # for retrieving keys from Key Vault
 from dotenv import load_dotenv                                      # for loading environment variables (usernames passwords urls etc) stored in .env file
 import os                                                           # for using environment variables once loaded in different files, os.getenv()
@@ -23,11 +23,16 @@ def FetchSecret(secret_name):
     Example:
         secret_value = FetchSecret("mySecretName")
     """
-    credential = ManagedIdentityCredential(client_id=os.getenv("UAMI_CLIENT_ID"))
+
+    if os.getenv("AZURE_FUNCTIONS_ENVIRONMENT") == "Development":
+        credential =AzureCliCredential()
+    else:
+        credential = ManagedIdentityCredential(client_id=os.getenv("UAMI_CLIENT_ID")),  
     kv_url = os.getenv("KEY_VAULT_URI")
     client = SecretClient(vault_url=kv_url, credential=credential)
     secret = client.get_secret(secret_name)
     return secret.value
+
 
 def OpenWeatherAPIGeocoding(api_key, city_name, state_code=None, country_code=None):
     """

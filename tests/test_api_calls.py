@@ -16,10 +16,14 @@ def api_key():
     return FetchSecret("OpenWeatherAPIKeyYasin")
 
 
-def test_api_key(api_key):
+def test_api_key(api_key, capfd):
     print("API Key:",api_key)
     assert api_key is not None  # make sure the key vault is returning something
     assert isinstance(api_key, str)  #make sure you are receiving a string
+
+    #capture output aka api key
+    captured = capfd.readouterr()
+    print(captured.out)
 
 
 
