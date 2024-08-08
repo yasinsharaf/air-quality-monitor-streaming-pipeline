@@ -24,6 +24,8 @@ def test_api_key(api_key, capfd):
     #capture output aka api key
     captured = capfd.readouterr()
     print(captured.out)
+    
+    
 
 
 
