@@ -34,7 +34,7 @@ def FetchSecret(secret_name):
     return secret.value
 
 
-def OpenWeatherAPIGeocoding(api_key, city_name=None, state_code=None, country_code=None):
+def OpenWeatherAPIGeocoding(api_key, city_name, state_code=None, country_code=None):
     """
     Retrieves geocoding information for a specified city using the OpenWeather API.
     
@@ -59,13 +59,11 @@ def OpenWeatherAPIGeocoding(api_key, city_name=None, state_code=None, country_co
     params = {
         'q': location,
         'appid': api_key,
-        'limit': 10
+        'limit': 1  # Limit results to one
     }
 
-    response = requests.get(base_url, params = params)
-    data =  response.json()
+    response = requests.get(base_url, params=params)
+    data = response.json()
     return data
-
-
 
 
