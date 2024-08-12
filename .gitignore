@@ -6,3 +6,5 @@ air-quality-DE
 
 #yasin's env
 .env
+
+__pycache__/
