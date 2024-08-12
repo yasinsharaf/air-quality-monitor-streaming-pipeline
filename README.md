@@ -29,12 +29,4 @@ This project leverages the Kappa architecture to handle both real-time and batch
 - **Testing and Validation:** dbt, Great Expectations
 - **CI/CD:** Azure DevOps
 
-## Contact
-
-For more information or queries about this project, please contact:
-
-- **Name:** [Your Name]
-- **Email:** [Your Email]
-- **LinkedIn:** [Your LinkedIn Profile]
-
 
