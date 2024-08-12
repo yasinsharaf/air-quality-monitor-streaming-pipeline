@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 #yasin's virtual env
 airqualityvenv
+=======
+#yasin's virtual env and env
+airqualityvenv
+.env
+>>>>>>> fd22325 (update .gitignore)
 
 #ray's virtual env
 air-quality-DE
