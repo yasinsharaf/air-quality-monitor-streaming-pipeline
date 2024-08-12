@@ -5,7 +5,7 @@
 The Real-Time Environmental and Tourism Monitoring Dashboard is designed to provide tourists with up-to-date insights into environmental conditions and tourism activities. By offering real-time information, this project aims to enhance travel safety and experience by helping tourists avoid areas with poor air quality, contaminated water sources, and overcrowded attractions. The dashboard integrates data from various sources, processes it in real-time, and presents it through comprehensive visualizations, enabling informed travel decisions.
 
 ## Architecture
-![Architecture Diagram](docs/images/air-quality-architecture.png)
+![Architecture Diagram](docs/images/architecture.png)
 
 This project leverages the Kappa architecture to handle both real-time and batch data processing seamlessly. The Kappa architecture is applied as follows:
 
