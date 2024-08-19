@@ -53,40 +53,39 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         api_key = FetchSecret("OpenWeatherAPIKeyRay")
         print(f"API Key Retrieved: {api_key is not None}")
 
+        # Create a BlobServiceClient using the connection string
+        blob_service_client = BlobServiceClient.from_connection_string(blob_conn_string)
+        print("BlobServiceClient created")
+
         # Fetch geocoding data
         geocoding = get_geocoding(api_key=api_key, city_name=city_name, state_code=state_code, country_code=country_code)
         print(f"Geocoding data retrieved: {geocoding[:100]}")  # Print first 100 characters of JSON
+
+        # Upload geocoding data to the "geocode" folder
+        geocoding_file_name = f"geocode/Batch-GeocodingAPI/{city_name}_geocoding.json"
+        blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=geocoding_file_name)
+        blob_client.upload_blob(data=json.dumps(geocoding), overwrite=True)
+        print(f"Geocoding data uploaded as {geocoding_file_name}")
 
         # Fetch current weather data
         current_weather = get_current_weather(api_key=api_key, lat=latitude, lon=longitude)
         print(f"Current weather data retrieved: {json.dumps(current_weather)[:100]}")  # Print first 100 characters
 
+        # Upload current weather data to the "weather" folder
+        current_weather_file_name = f"weather/RT-CurrentAPI/{city_name}_current_weather.json"
+        blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=current_weather_file_name)
+        blob_client.upload_blob(data=json.dumps(current_weather), overwrite=True)
+        print(f"Current weather data uploaded as {current_weather_file_name}")
+
         # Fetch 3-hour forecast data
         forecast = get_three_hour_forecast(api_key=api_key, lat=latitude, lon=longitude)
         print(f"3-hour forecast data retrieved: {json.dumps(forecast)[:100]}")  # Print first 100 characters
 
-        # Prepare the data to be uploaded (e.g., combining all data into one JSON object)
-        combined_data = {
-            "geocoding": geocoding,
-            "current_weather": current_weather,
-            "forecast": forecast
-        }
-
-        # Convert the combined data to a JSON string
-        combined_json = json.dumps(combined_data)
-        print(f"Combined JSON: {combined_json[:100]}")  # Print first 100 characters
-
-        # Create a BlobServiceClient using the connection string
-        blob_service_client = BlobServiceClient.from_connection_string(blob_conn_string)
-        print("BlobServiceClient created")
-
-        # Get a BlobClient for the specific blob
-        blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob="weather_data.json")
-        print("BlobClient for weather_data.json created")
-
-        # Upload the combined JSON data to the specified blob
-        blob_client.upload_blob(data=combined_json, overwrite=True, blob_type="BlockBlob")
-        print("Combined JSON uploaded to Blob Storage")
+        # Upload forecast data to the "forecast" folder
+        forecast_file_name = f"weather/RT-3HrForecastAPI/{city_name}_three_hour_forecast.json"
+        blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=forecast_file_name)
+        blob_client.upload_blob(data=json.dumps(forecast), overwrite=True)
+        print(f"Forecast data uploaded as {forecast_file_name}")
 
         # Return an HTTP response indicating successful data ingestion
         return func.HttpResponse("Data ingested successfully!", status_code=200)
@@ -95,4 +94,3 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.error(f"Error: {str(e)}")
         print(f"Error occurred: {str(e)}")
         return func.HttpResponse(f"Error: {str(e)}", status_code=500)
-
