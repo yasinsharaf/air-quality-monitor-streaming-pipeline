@@ -61,3 +61,9 @@ def get_three_hour_forecast(api_key, lat, lon):
     base_url = "https://api.openweathermap.org/data/2.5/forecast"
     params = {'lat': lat, 'lon': lon, 'appid': api_key}
     return call_api(base_url, params)
+
+def get_air_pollution(api_key, lat, lon):
+    """Fetch air pollution data."""
+    base_url = "http://api.openweathermap.org/data/2.5/air_pollution"
+    params = {'lat': lat, 'lon': lon, 'appid': api_key}
+    return call_api(base_url, params)
