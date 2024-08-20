@@ -33,6 +33,7 @@ class TestAPIRealCalls(unittest.TestCase):
         self.blob_container_name = os.getenv("BLOB_CONTAINER_NAME")
 
         self.current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        self.current_datet = datetime.now().strftime('%Y-%m-%d')
 
         # Check that all required environment variables are set
         assert self.key_vault_uri, "KEY_VAULT_URI is not set!"
@@ -90,7 +91,7 @@ class TestAPIRealCalls(unittest.TestCase):
             self.assertIn("main", data)
 
             # Upload the current weather data to the appropriate folder
-            file_name = f"weather/{self.city_name}/RT-CurrentAPI/{self.city_name}_current_weather_{self.current_datetime}.json"
+            file_name = f"weather/RT-CurrentAPI/{self.city_name}/{self.current_datet}/{self.city_name}_current_weather_{self.current_datetime}.json"
             self.upload_to_blob(json.dumps(data), file_name)
 
         except requests.exceptions.HTTPError as e:
@@ -106,7 +107,7 @@ class TestAPIRealCalls(unittest.TestCase):
             self.assertGreater(len(data["list"]), 0)  # Ensure there's at least one forecast entry
 
             # Upload the forecast data to the appropriate folder
-            file_name = f"weather/{self.city_name}/RT-3HrForecastAPI/{self.city_name}_three_hour_forecast_{self.current_datetime}.json"
+            file_name = f"weather/RT-3HrForecastAPI/{self.city_name}/{self.current_datet}/{self.city_name}_three_hour_forecast_{self.current_datetime}.json"
             self.upload_to_blob(json.dumps(data), file_name)
 
         except requests.exceptions.HTTPError as e:
@@ -122,7 +123,7 @@ class TestAPIRealCalls(unittest.TestCase):
             self.assertGreater(len(data["list"]), 0)  # Ensure there's at least one pollution entry
 
             # Upload the air pollution data to the appropriate folder
-            file_name = f"pollution/{self.city_name}/{self.city_name}_air_pollution_{self.current_datetime}.json"
+            file_name = f"pollution/{self.city_name}/{self.current_datet}/{self.city_name}_air_pollution_{self.current_datetime}.json"
             self.upload_to_blob(json.dumps(data), file_name)
 
         except requests.exceptions.HTTPError as e:
