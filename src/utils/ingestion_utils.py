@@ -34,8 +34,6 @@ def FetchSecret(secret_name):
         credential = ManagedIdentityCredential(client_id=os.getenv("UAMI_CLIENT_ID"))
     
 
-    Example:
-        secret_value = FetchSecret("mySecretName")
 
     if os.getenv("AZURE_FUNCTIONS_ENVIRONMENT") == "Development":
         credential =AzureCliCredential()
@@ -55,6 +53,14 @@ def call_api(base_url, params):
 def get_geocoding(api_key, city_name, state_code=None, country_code=None):
     """Fetch geocoding information."""
     base_url = "http://api.openweathermap.org/geo/1.0/direct"
+    location = city_name
+    if state_code:
+        location += f",{state_code}"
+    if country_code:
+        location += f",{country_code}"
+
+    params = {'q': location, 'appid': api_key, 'limit': 1}
+    return call_api(base_url, params)
 
 def OpenWeatherAPIGeocoding(api_key, city_name=None, state_code=None, country_code=None):
     """

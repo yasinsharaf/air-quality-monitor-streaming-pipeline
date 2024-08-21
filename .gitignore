@@ -1,31 +1,11 @@
-<<<<<<< HEAD
 #yasin's virtual env
 airqualityvenv
 
 #ray's virtual env
-<<<<<<< HEAD
 air-quality-DE
 
 #yasin's env
 .env
 
 __pycache__/
-=======
 air-quality-DE
->>>>>>> develop
-=======
-<<<<<<< HEAD
-#yasin's virtual env
-airqualityvenv
-=======
-#yasin's virtual env and env
-airqualityvenv
-.env
->>>>>>> fd22325 (update .gitignore)
-
-#ray's virtual env
-air-quality-DE
-
-#yasin's env
-.env
->>>>>>> 37a19820662c666da11426aff6d5cef5aeb25d51
