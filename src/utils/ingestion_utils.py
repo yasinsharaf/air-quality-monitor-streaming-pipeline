@@ -5,6 +5,13 @@ from dotenv import load_dotenv  # for loading environment variables from a .env 
 import os  # for accessing environment variables
 
 # Load environment variables from the .env file
+import requests                                                     # for requesting response from api call
+from azure.identity import ManagedIdentityCredential, AzureCliCredential              # work with your UAMI credentials
+from azure.keyvault.secrets import SecretClient                     # for retrieving keys from Key Vault
+from dotenv import load_dotenv                                      # for loading environment variables (usernames passwords urls etc) stored in .env file
+import os                                                           # for using environment variables once loaded in different files, os.getenv()
+
+# load env vars
 load_dotenv()
 
 def FetchSecret(secret_name):
@@ -26,6 +33,14 @@ def FetchSecret(secret_name):
     else:
         credential = ManagedIdentityCredential(client_id=os.getenv("UAMI_CLIENT_ID"))
     
+
+    Example:
+        secret_value = FetchSecret("mySecretName")
+
+    if os.getenv("AZURE_FUNCTIONS_ENVIRONMENT") == "Development":
+        credential =AzureCliCredential()
+    else:
+        credential = ManagedIdentityCredential(client_id=os.getenv("UAMI_CLIENT_ID")),  
     kv_url = os.getenv("KEY_VAULT_URI")
     client = SecretClient(vault_url=kv_url, credential=credential)
     secret = client.get_secret(secret_name)
@@ -40,6 +55,23 @@ def call_api(base_url, params):
 def get_geocoding(api_key, city_name, state_code=None, country_code=None):
     """Fetch geocoding information."""
     base_url = "http://api.openweathermap.org/geo/1.0/direct"
+
+def OpenWeatherAPIGeocoding(api_key, city_name=None, state_code=None, country_code=None):
+    """
+    Retrieves geocoding information for a specified city using the OpenWeather API.
+    
+    Parameters:
+    - api_key (str): Your OpenWeather API key.
+    - city_name (str): The name of the city you want to geocode.
+    - state_code (str, optional): The state code for the city. Default is None.
+    - country_code (str, optional): The country code for the city. Default is None.
+    
+    Returns:
+    - dict: The API response containing geocoding information.
+    """
+    
+    base_url = "http://api.openweathermap.org/geo/1.0/direct?"
+
     location = city_name
     if state_code:
         location += f",{state_code}"
@@ -67,3 +99,16 @@ def get_air_pollution(api_key, lat, lon):
     base_url = "http://api.openweathermap.org/data/2.5/air_pollution"
     params = {'lat': lat, 'lon': lon, 'appid': api_key}
     return call_api(base_url, params)
+    params = {
+        'q': location,
+        'appid': api_key,
+        'limit': 10
+    }
+
+    response = requests.get(base_url, params = params)
+    data =  response.json()
+    return data
+
+
+
+
