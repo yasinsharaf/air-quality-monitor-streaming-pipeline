@@ -77,7 +77,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         print(f"Current weather data retrieved: {json.dumps(current_weather)[:100]}")  # Print first 100 characters
 
         # Upload current weather data to the "weather" folder
-        current_weather_file_name = f"weather/RT-CurrentAPI/{city_name}/{current_datet}/{city_name}_current_weather_{current_datetime}.json"
+        current_weather_file_name = f"weather/RT-CurrentAPI/city={city_name}/{current_datet}/{city_name}_current_weather_{current_datetime}.json"
         blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=current_weather_file_name)
         blob_client.upload_blob(data=json.dumps(current_weather), overwrite=True)
         print(f"Current weather data uploaded as {current_weather_file_name}")
@@ -87,7 +87,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         print(f"3-hour forecast data retrieved: {json.dumps(forecast)[:100]}")  # Print first 100 characters
 
         # Upload forecast data to the "forecast" folder
-        forecast_file_name = f"weather/RT-3HrForecastAPI/{city_name}/{current_datet}/{city_name}_three_hour_forecast_{current_datetime}.json"
+        forecast_file_name = f"weather/RT-3HrForecastAPI/city={city_name}/{current_datet}/{city_name}_three_hour_forecast_{current_datetime}.json"
         blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=forecast_file_name)
         blob_client.upload_blob(data=json.dumps(forecast), overwrite=True)
         print(f"Forecast data uploaded as {forecast_file_name}")
@@ -101,7 +101,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         print(f"Air pollution data retrieved: {json.dumps(air_pollution)[:100]}")  # Print first 100 characters
 
         # Upload air pollution data to the "pollution" folder
-        air_pollution_file_name = f"pollution/{city_name}/{current_datet}/{city_name}_air_pollution_{current_datetime}.json"
+        air_pollution_file_name = f"pollution/city={city_name}/{current_datet}/{city_name}_air_pollution_{current_datetime}.json"
         blob_client = blob_service_client.get_blob_client(container=blob_container_name, blob=air_pollution_file_name)
         blob_client.upload_blob(data=json.dumps(air_pollution), overwrite=True)
         print(f"Air pollution data uploaded as {air_pollution_file_name}")     
