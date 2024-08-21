@@ -2,9 +2,13 @@
 airqualityvenv
 
 #ray's virtual env
+<<<<<<< HEAD
 air-quality-DE
 
 #yasin's env
 .env
 
 __pycache__/
+=======
+air-quality-DE
+>>>>>>> develop
