@@ -1,0 +1,196 @@
+{
+  "root": {
+    "lat": {
+      "type": "double",
+      "nullable": true
+    },
+    "lon": {
+      "type": "double",
+      "nullable": true
+    },
+    "weather": {
+      "type": "array",
+      "nullable": true,
+      "element": {
+        "type": "struct",
+        "containsNull": true,
+        "fields": {
+          "id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "main": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "base": {
+      "type": "string",
+      "nullable": true
+    },
+    "main": {
+      "type": "struct",
+      "nullable": false,
+      "fields": {
+        "temp": {
+          "type": "array",
+          "nullable": false,
+          "element": {
+            "type": "double",
+            "containsNull": true
+          }
+        },
+        "feels_like": {
+          "type": "array",
+          "nullable": false,
+          "element": {
+            "type": "double",
+            "containsNull": true
+          }
+        },
+        "temp_min": {
+          "type": "array",
+          "nullable": false,
+          "element": {
+            "type": "double",
+            "containsNull": true
+          }
+        },
+        "temp_max": {
+          "type": "array",
+          "nullable": false,
+          "element": {
+            "type": "double",
+            "containsNull": true
+          }
+        },
+        "pressure": {
+          "type": "integer",
+          "nullable": true
+        },
+        "humidity": {
+          "type": "integer",
+          "nullable": true
+        },
+        "sea_level": {
+          "type": "integer",
+          "nullable": true
+        },
+        "grnd_level": {
+          "type": "integer",
+          "nullable": true
+        }
+      }
+    },
+    "visibility": {
+      "type": "integer",
+      "nullable": true
+    },
+    "wind": {
+      "type": "struct",
+      "nullable": true,
+      "fields": {
+        "speed": {
+          "type": "double",
+          "nullable": true
+        },
+        "deg": {
+          "type": "integer",
+          "nullable": true
+        },
+        "gust": {
+          "type": "double",
+          "nullable": true
+        }
+      }
+    },
+    "rain": {
+      "type": "struct",
+      "nullable": true,
+      "fields": {
+        "1h": {
+          "type": "double",
+          "nullable": true
+        }
+      }
+    },
+    "clouds": {
+      "type": "struct",
+      "nullable": true,
+      "fields": {
+        "all": {
+          "type": "integer",
+          "nullable": true
+        }
+      }
+    },
+    "dt": {
+      "type": "long",
+      "nullable": true
+    },
+    "sys": {
+      "type": "struct",
+      "nullable": false,
+      "fields": {
+        "sunrise": {
+          "type": "string",
+          "nullable": true
+        },
+        "sunset": {
+          "type": "string",
+          "nullable": true
+        }
+      }
+    },
+    "timezone": {
+      "type": "integer",
+      "nullable": true
+    },
+    "id": {
+      "type": "integer",
+      "nullable": true
+    },
+    "cod": {
+      "type": "integer",
+      "nullable": true
+    },
+    "datetime": {
+      "type": "string",
+      "nullable": true
+    },
+    "utc_offset": {
+      "type": "double",
+      "nullable": true
+    },
+    "utc_offset_label": {
+      "type": "string",
+      "nullable": true
+    },
+    "country": {
+      "type": "string",
+      "nullable": true
+    },
+    "city": {
+      "type": "string",
+      "nullable": true
+    },
+    "state": {
+      "type": "string",
+      "nullable": true
+    },
+    "date": {
+      "type": "date",
+      "nullable": true
+    }
+  }
+}
